@@ -1,0 +1,162 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int prov(int& value) {
+	while (!(cin >> value)) {
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Введено не число. Введите снова.\n";
+	}
+	return 0;
+}
+
+int mas2(int mas[50], int n2, string& m) {
+	cout << " Введите массив количество элементов не больше чем " << n2 << ":" << endl;
+	for (int i = 0; i < n2; ++i) {
+		cin >> mas[i];
+	}
+
+	bool с = true;
+	for (int i = 2; i < n2; ++i) {
+		if (mas[i] - mas[i - 1] != mas[i - 1] - mas[i - 2]) {
+			с = false;
+			break;
+		}
+	}
+
+	if (с) {
+		m = "Массив является арифметической прогрессией";
+	}
+	else {
+		m = "Массив не является арифметической прогрессией";
+	}
+	cout << m << endl;
+	return 0;
+}
+
+
+int main() {
+	setlocale(LC_ALL, "RU");
+
+	
+		//Task N1
+		string m;
+		int n;
+		cout << "Задание N1 \n Введите размер массива: " ;
+		prov(n);
+		int *a = new int[n];
+		a[0] = 2;
+		cout << " Массив элементами которого являются натуральные степени двойки: ";
+		for (int i = 1; i < n; i++) {
+			a[i] = a[i - 1] * 2;
+
+		} for (int i = 0; i < n; i++) {
+			cout << a[i] << " ";
+		}cout << endl;
+
+
+		// Task N2
+		int n2;
+		cout << "Задание N2 \n Введите размер массива: ";
+		prov(n2);
+		int mas[50];
+		mas2(mas, n2, m);
+
+
+		//task N3
+		int N;
+		cout << " Задание N3 \n Введите размер массива: ";
+		prov(N);
+
+		int* a3 = new int[N];
+		cout << " Введите элементы массива: ";
+		for (int i = 0; i < N; ++i) {
+			cin >> a3[i];
+		}
+
+		int max_index = 0;
+		for (int i = 1; i < N; ++i) {
+			if (a3[i] > a3[max_index]) {
+				max_index = i;
+			}
+		}
+		cout << "Массив элементами которого являются числа после максимального введённого элемента массива:" << endl;
+		for (int i = max_index; i < N; ++i) {
+			cout << a3[i] << " ";
+		}
+		cout << endl;
+
+
+		//task N4
+		int n4, m4, k4;
+		cout << "Задание N4 \n Введите количество строк(N): ";
+		prov(n4);
+		cout << "Введите количество столбцов(M): ";
+		prov(m4);
+		cout << "Введите номер столбца(K): ";
+		prov(k4);
+		int** a4 = new int* [n4];
+		for (int i = 0; i < n4; i++) {
+			a4[i] = new int[m4];
+		}
+		cout << "Введите элементы массива (" << n4 << "X" << m4 << "):" << endl;
+		for (int i4 = 0; i4 < n4; i4++) {
+			for (int j4 = 0; j4 < m4; j4++) {
+				cin >> a4[i4][j4];
+			}
+		}
+		cout << "K столбец: "<< endl;
+		if (k4 < 1 || k4 > m4) {
+			cout << "Некорректный номер столбца. Номер должен быть в диапазоне от 1 до " << m4 << "." << endl;
+		}
+		else {
+			for (int i4 = 0; i4 < n4; i4++) {
+				cout << a4[i4][k4 - 1] << endl;
+			}
+		}
+		for (int i = 0; i < n4; i++) {
+			delete[] a4[i];
+		}
+		delete[] a4;
+
+
+		//task N5
+
+		int N5, M5;
+		cout << "Задание N5" << endl;
+		cout << "Введите количество строк (N): ";
+		prov(N5);
+		cout << "Введите количество столбцов (M): ";
+		prov(M5);
+
+		double** mas5=new double* [N5];
+		for (int i = 0; i < N5; i++) {
+			mas5[i] = new double[M5];
+		}
+		cout << "Введите элементы матрицы (" << N5 << "x" << M5 << "):" << endl;
+		for (int i = 0; i < N5; ++i) {
+			for (int j = 0; j < M5; ++j) {
+				cin >> mas5[i][j];
+			}
+		}
+
+		double sum_of_max_elements = 0.0;
+		for (int j = 0; j < M5; ++j) {
+			double max_element = mas5[0][j];
+			for (int i = 1; i < N5; ++i) {
+				if (mas5[i][j] > max_element) {
+					max_element = mas5[i][j];
+				}
+			}
+			sum_of_max_elements += max_element;
+		}
+
+		cout << sum_of_max_elements << endl;
+		for (int i = 0; i < N5; i++) {
+			delete[] mas5[i];
+		}
+		delete[] mas5;
+		return 0;
+}
